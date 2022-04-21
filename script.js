@@ -4,8 +4,8 @@ const CREDENTIALS = [
     pw: "test123",
   },
   {
-    name: "saideepak",
-    pw: "sai",
+    name: "rakshu",
+    pw: "123",
   },
 ];
 
@@ -250,29 +250,24 @@ function initiateLogin() {
   });
 }
 
-let pushRandom = [];
-let randomGen = (Math.random() * 9).toFixed(0);
+let randomGen = 0;
 let loadQues = QUIZ_QUESTIONS[randomGen];
-let ans;
-for (let i = 0; i < 3; i++) {
-  if (loadQues.a[i].isCorrect) {
-    ans = loadQues.a[i].text;
-  }
-}
-let score = 0;
-
 function randomNoGenerator() {
+  randomGen = (Math.random() * 9).toFixed(0);
   if (pushRandom.includes(randomGen)) {
     randomNoGenerator();
   } else {
     pushRandom.push(randomGen);
     console.log(randomGen);
+    console.log(loadQues);
   }
 }
 
+let pushRandom = [];
+
 function proceedQuiz() {
   let hideLogin = document.querySelector(".login");
-  hideLogin.className = "hide";
+  // hideLogin.className = "hide"; 
 
   let count = pushRandom.length + 1;
   let question = document.querySelector(".quiz");
@@ -298,9 +293,12 @@ function proceedQuiz() {
     </label><br />
     <button class="btn btn-dark" onclick="validateAns()">Next</button>
   `;
-
+  randomNoGenerator();
   document.body.appendChild(question);
 }
+
+let score = [];
+let length = score.length + 1;
 
 function validateAns() {
   let checkedVal;
@@ -309,8 +307,20 @@ function validateAns() {
       checkedVal = document.querySelector(`#flexRadioDefault${i}`).value;
     }
   }
-  console.log(checkedVal);
+  for(let i = 0; i <= 3; i++) {
+    if(loadQues.a[i].text === checkedVal && loadQues.a[i].isCorrect === true) {
+      score.push(1);
+    }else if(loadQues.a[i].text === checkedVal && loadQues.a[i].isCorrect === false){
+      score.pop();
+    }
+  }
+  localStorage.setItem("score", JSON.stringify(score));
+  
+  console.log(pushRandom.length);
+  // console.log(loadQues.a[j].text[checkedVal]);
   if (pushRandom.length + 1 !== 5) {
-    proceedQuiz;
+    randomNoGenerator();
+    proceedQuiz();
   }
 }
+
