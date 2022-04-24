@@ -9,232 +9,59 @@ const CREDENTIALS = [
   },
 ];
 
-const QUIZ_QUESTIONS = [
+const quizData = [
   {
-    q: "India is a federal union comprising twenty-eight states and how many union territories?",
-    a: [
-      {
-        text: "6",
-        isCorrect: false,
-      },
-      {
-        text: "7",
-        isCorrect: false,
-      },
-      {
-        text: "8",
-        isCorrect: true,
-      },
-      {
-        text: "9",
-        isCorrect: false,
-      },
-    ],
+    question: "Which language runs in a web browser?",
+    a: "Java",
+    b: "C",
+    c: "Python",
+    d: "javascript",
+    correct: "d",
   },
   {
-    q: "Which of the following is the capital of Arunachal Pradesh?",
-    a: [
-      {
-        text: "Itanagar",
-        isCorrect: true,
-      },
-      {
-        text: "Dispur",
-        isCorrect: false,
-      },
-      {
-        text: "Imphal",
-        isCorrect: false,
-      },
-      {
-        text: "Panaji",
-        isCorrect: false,
-      },
-    ],
+    question: "What does CSS stand for?",
+    a: "Central Style Sheets",
+    b: "Cascading Style Sheets",
+    c: "Cascading Simple Sheets",
+    d: "Cars SUVs Sailboats",
+    correct: "b",
   },
   {
-    q: "What are the major languages spoken in Andhra Pradesh?",
-    a: [
-      {
-        text: "Odia&Telugu",
-        isCorrect: false,
-      },
-      {
-        text: "Telugu&Urdu",
-        isCorrect: true,
-      },
-      {
-        text: "Telugu&Kannada",
-        isCorrect: false,
-      },
-      {
-        text: "All",
-        isCorrect: false,
-      },
-    ],
+    question: "What does HTML stand for?",
+    a: "Hypertext Markup Language",
+    b: "Hypertext Markdown Language",
+    c: "Hyperloop Machine Language",
+    d: "Helicopters Terminals Motorboats Lamborginis",
+    correct: "a",
   },
   {
-    q: "What is the state flower of Haryana?",
-    a: [
-      {
-        text: "Lotus",
-        isCorrect: true,
-      },
-      {
-        text: "Rhododendron",
-        isCorrect: false,
-      },
-      {
-        text: "Jasminer",
-        isCorrect: false,
-      },
-      {
-        text: "None",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    q: "Which of the following states is not located in the North?",
-    a: [
-      {
-        text: "Jharkhand",
-        isCorrect: true,
-      },
-      {
-        text: "Kerela",
-        isCorrect: false,
-      },
-      {
-        text: "Karnataka",
-        isCorrect: false,
-      },
-      {
-        text: "Haryana",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    q: "In which of the following state, the main language is Khasi?",
-    a: [
-      {
-        text: "Mizoram",
-        isCorrect: false,
-      },
-      {
-        text: "Nagaland",
-        isCorrect: false,
-      },
-      {
-        text: "Meghalaya",
-        isCorrect: true,
-      },
-      {
-        text: "Tripura",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    q: "Which is the largest coffee-producing state of India?",
-    a: [
-      {
-        text: "Kerala",
-        isCorrect: true,
-      },
-      {
-        text: "Nagaland",
-        isCorrect: false,
-      },
-      {
-        text: "Karnataka",
-        isCorrect: false,
-      },
-      {
-        text: "Tripura",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    q: "Which state has the largest area?",
-    a: [
-      {
-        text: "Maharashtra",
-        isCorrect: false,
-      },
-      {
-        text: "Kerela",
-        isCorrect: false,
-      },
-      {
-        text: "Tripura",
-        isCorrect: false,
-      },
-      {
-        text: "Rajasthan",
-        isCorrect: true,
-      },
-    ],
-  },
-  {
-    q: "Which state has the largest population?",
-    a: [
-      {
-        text: "UttarPradesh",
-        isCorrect: true,
-      },
-      {
-        text: "Maharastra",
-        isCorrect: false,
-      },
-      {
-        text: "Bihar",
-        isCorrect: false,
-      },
-      {
-        text: "Rajasthan",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    q: "In what state is Elephant Falls located?",
-    a: [
-      {
-        text: "Mizoram",
-        isCorrect: false,
-      },
-      {
-        text: "Orissa",
-        isCorrect: false,
-      },
-      {
-        text: "Manipur",
-        isCorrect: false,
-      },
-      {
-        text: "Meghalaya",
-        isCorrect: true,
-      },
-    ],
+    question: "What year was JavaScript launched?",
+    a: "1996",
+    b: "1995",
+    c: "1994",
+    d: "none of the above",
+    correct: "b",
   },
 ];
+const login = document.querySelector(".login");
+const time = document.querySelector(".time");
+const quiz = document.getElementById("quiz");
+let endQ = document.querySelector(".quizEnd");
+const answerEls = document.querySelectorAll(".answer");
+const questionEl = document.getElementById("question");
+const a_text = document.getElementById("a_text");
+const b_text = document.getElementById("b_text");
+const c_text = document.getElementById("c_text");
+const d_text = document.getElementById("d_text");
+const submitBtn = document.getElementById("submit");
+endQ.classList.add("hide");
 
-function loginPg() {
-  let hideWelcome = document.querySelector(".welcomepg");
-  hideWelcome.className = "hide";
-
-  let log = document.querySelector(".login");
-  log.innerHTML = `
-    <h2>Login</h2>
-    <input type="text" class="form-control usrName" placeholder="username">
-    <input type="password" class="form-control pwUsr" placeholder="Password">
-    <button type="button" class="btn btn-primary" onclick="initiateLogin()">Login</button>
-  `;
-}
-// loginPg();
+let currentQuiz = 0;
+let score = 0;
+let startingMinutes = 1;
+let timer = startingMinutes * 60;
+let currentScore = localStorage.getItem("score");
+let parseCurrentScore = JSON.parse(currentScore);
 
 function initiateLogin() {
   let userName = document.querySelector(".usrName").value;
@@ -242,85 +69,91 @@ function initiateLogin() {
 
   CREDENTIALS.every((ele) => {
     if (ele.name === userName && ele.pw === pw) {
-      proceedQuiz();
-      //   console.log("success");
+      login.classList.add("hide");
+      quiz.classList.remove("hide");
+      time.classList.remove("hide");
+      window.interval = setInterval(updateCountdown, 1000);
     } else {
       alert("Wrong login credentials");
     }
   });
 }
 
-let randomGen = 0;
-let loadQues = QUIZ_QUESTIONS[randomGen];
-function randomNoGenerator() {
-  randomGen = (Math.random() * 9).toFixed(0);
-  if (pushRandom.includes(randomGen)) {
-    randomNoGenerator();
-  } else {
-    pushRandom.push(randomGen);
-    console.log(randomGen);
-    console.log(loadQues);
-  }
+loadQuiz();
+
+function loadQuiz() {
+  deselectAnswers();
+
+  const currentQuizData = quizData[currentQuiz];
+
+  questionEl.innerText = currentQuizData.question;
+  a_text.innerText = currentQuizData.a;
+  b_text.innerText = currentQuizData.b;
+  c_text.innerText = currentQuizData.c;
+  d_text.innerText = currentQuizData.d;
 }
 
-let pushRandom = [];
+function deselectAnswers() {
+  answerEls.forEach((answerEl) => (answerEl.checked = false));
+}
 
-function proceedQuiz() {
-  let hideLogin = document.querySelector(".login");
-  // hideLogin.className = "hide"; 
+function getSelected() {
+  let answer;
+  answerEls.forEach((answerEl) => {
+    if (answerEl.checked) {
+      answer = answerEl.id;
+    }
+  });
+  return answer;
+}
 
-  let count = pushRandom.length + 1;
-  let question = document.querySelector(".quiz");
+submitBtn.addEventListener("click", () => {
+  const answer = getSelected();
+  if (answer) {
+    if (answer === quizData[currentQuiz].correct) {
+      score++;
+      localStorage.setItem("score", JSON.stringify(score));
+    }
 
-  question.innerHTML = `
-    <h3>Question number ${count}</h3>
-    <p>${loadQues.q}</p>
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault0" value=${loadQues.a[0].text}>
-    <label class="form-check-label" for="flexRadioDefault0">
-      ${loadQues.a[0].text}
-    </label><br />
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value=${loadQues.a[1].text}>
-    <label class="form-check-label" for="flexRadioDefault1">
-      ${loadQues.a[1].text}
-    </label><br />
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value=${loadQues.a[2].text}>
-    <label class="form-check-label" for="flexRadioDefault2">
-      ${loadQues.a[2].text}
-    </label><br />
-    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value=${loadQues.a[3].text}>
-    <label class="form-check-label" for="flexRadioDefault3">
-      ${loadQues.a[3].text}
-    </label><br />
-    <button class="btn btn-dark" onclick="validateAns()">Next</button>
+    currentQuiz++;
+
+    if (currentQuiz < quizData.length) {
+      loadQuiz();
+    } else {
+      quiz.innerHTML = `
+         <h2>You answered ${parseCurrentScore}/${quizData.length} questions correctly</h2>
+
+         <button onclick="location.reload()">Reload</button>
+         `;
+      clearInterval(interval);
+      time.classList.add("hide");
+    }
+  }
+});
+
+function updateCountdown() {
+  let minutes = Math.floor(timer / 60);
+  let seconds = timer % 60;
+  time.innerHTML = `
+    Time Left- <span>${minutes}:${seconds}</span>
   `;
-  randomNoGenerator();
-  document.body.appendChild(question);
-}
-
-let score = [];
-let length = score.length + 1;
-
-function validateAns() {
-  let checkedVal;
-  for (let i = 0; i <= 3; i++) {
-    if (document.querySelector(`#flexRadioDefault${i}`).checked) {
-      checkedVal = document.querySelector(`#flexRadioDefault${i}`).value;
-    }
-  }
-  for(let i = 0; i <= 3; i++) {
-    if(loadQues.a[i].text === checkedVal && loadQues.a[i].isCorrect === true) {
-      score.push(1);
-    }else if(loadQues.a[i].text === checkedVal && loadQues.a[i].isCorrect === false){
-      score.pop();
-    }
-  }
-  localStorage.setItem("score", JSON.stringify(score));
-  
-  console.log(pushRandom.length);
-  // console.log(loadQues.a[j].text[checkedVal]);
-  if (pushRandom.length + 1 !== 5) {
-    randomNoGenerator();
-    proceedQuiz();
+  timer--;
+  console.log(minutes);
+  if (minutes === 0 && seconds === 0) {
+    end();
   }
 }
 
+function end() {
+  endQ.classList.remove("hide");
+  quiz.classList.add("hide");
+  time.classList.add("hide");
+  let stop = document.querySelector(".quizEnd");
+  stop.innerHTML = `
+    <p>Your time has ended and your score is ${
+      parseCurrentScore === null ? 0 : parseCurrentScore
+    }</p>
+    <p>Want to try again click the button 👇</p>
+    <button onclick="location.reload()">Reload</button>
+  `;
+}
